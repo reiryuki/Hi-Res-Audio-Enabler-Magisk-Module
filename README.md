@@ -19,7 +19,7 @@
 - Reboot
 
 ## Troubleshootings
-- Use Audio Modification Library module if you using other modules which also patching audio_policy_configuration.xml
+- Use Audio Modification Library module if you using other modules which also patching audio_policy_configuration.xml like Audio Compatibilty Patch, Dolby Atmos Oneplus 8 Visible, and Sound Enhancement.
 - Delete /data/adb/modules/HiResAudio folder via recovery if you facing bootloop and send copied and zipped /data/system/dropbox files for fix
 - Open issues and send full logcats if this module is not working for your device
 
