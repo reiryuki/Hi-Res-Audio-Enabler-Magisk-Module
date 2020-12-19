@@ -2,6 +2,7 @@
 
 ## Descriptions
 - Enable hi-res audio 24 bit output and input through modification of audio policy for supported Android devices.
+- May caused problems in unsupported hardware
 
 ## Requirements
 - /system|vendor/etc/audio_policy_configuration.xml
