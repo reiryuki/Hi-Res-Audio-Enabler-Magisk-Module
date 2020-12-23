@@ -1,7 +1,7 @@
 # Hi-Res Audio 24 Bit Enabler Magisk Module
 
 ## Descriptions
-- Enable hi-res audio 24 bit output (deep buffer, compress offload, & primary) and input (primary and fast) through modification of audio policy for supported Android devices. 
+- Enable hi-res audio format PCM 24 bit output (deep buffer, compress offload, & primary) and input (primary and fast) through modification of audio policy for supported Android devices. 
 - May caused problems in unsupported hardware
 
 ## Screenshots
