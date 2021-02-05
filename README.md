@@ -2,7 +2,7 @@
 
 ## Descriptions
 - Enable hi-res audio format PCM 24 bit for deep buffer, & primary output and primary & fast input through modification of audio policy for supported Android devices. 
-- May caused problems in unsupported hardware
+- May caused problems in unsupported hardware, unsupported library, and unsupported EQ.
 
 ## Screenshots
 - https://t.me/audioryukimods/1532
