@@ -16,6 +16,7 @@
 
 ## Installation Guide
 - Install the module via Magisk Manager only
+- Install Audio Modification Library Module if you using other audio mods (If audio mods are not patching audio policy, so it's not required)
 - Reboot
 
 ## Troubleshootings
