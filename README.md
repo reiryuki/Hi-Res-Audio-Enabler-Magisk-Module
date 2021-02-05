@@ -1,7 +1,7 @@
 # Hi-Res Audio 24 Bit Enabler Magisk Module
 
 ## Descriptions
-- Enable hi-res audio format PCM 24 bit output (deep buffer, compress offload, & primary) and input (primary and fast) through modification of audio policy for supported Android devices. 
+- Enable hi-res audio format PCM 24 bit for deep buffer, & primary output and primary & fast input through modification of audio policy for supported Android devices. 
 - May caused problems in unsupported hardware
 
 ## Screenshots
@@ -20,7 +20,7 @@
 
 ## Troubleshootings
 - Use Audio Modification Library module if you using other modules which also patching audio_policy_configuration.xml like Audio Compatibilty Patch, Dolby Atmos Oneplus 8 Visible, Audio Wizard Zen 5, and Sound Enhancement.
-- If logcat showed still running in PCM 16 bit, mean audio primary library is not supported for PCM 24 bit.
+- If logcat shows still running in PCM 16 bit, mean your audio primary library is not supported for PCM 24 bit.
 - Delete /data/adb/modules/HiResAudio folder via recovery if you facing bootloop and send copied and zipped /data/system/dropbox files for fix
 - Open issues and send full logcats if this module is not working for your device
 
