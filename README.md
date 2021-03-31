@@ -28,14 +28,8 @@
 ## Bug Report
 - Sending logcats and ...policy...xml files from /system/etc/ and /vendor/etc/ is a must. Otherwise, will be closed immediately.
 
-## Attention!
-- Always make nandroid backup before install or updating version, these are just experiments!
-- Don't report anything without logcats!
-- Special thanks to all people that helped and tested my modules.
-
 ## Telegram
 - https://t.me/audioryukimods
-- https://t.me/modsandco
 
 ## Donate
 - https://www.paypal.me/reiryuki
