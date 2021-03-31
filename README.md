@@ -22,8 +22,11 @@
 ## Troubleshootings
 - Use Audio Modification Library module if you using other modules which also patching audio_policy_configuration.xml like Audio Compatibilty Patch, Dolby Atmos Oneplus 8 Visible, Audio Wizard Zen 5, and Sound Enhancement.
 - If logcat shows still running in PCM 16 bit, mean your audio primary library is not supported for PCM 24 bit.
+- Any app bit width detection is only detecting .conf file not .xml file, so it's not valid anymore
 - Delete /data/adb/modules/HiResAudio folder via recovery if you facing bootloop and send copied and zipped /data/system/dropbox files for fix
-- Open issues and send full logcats if this module is not working for your device
+
+## Bug Report
+- Sending logcats and ...policy...xml files from /system/etc/ and /vendor/etc/ is a must. Otherwise, will be closed immediately.
 
 ## Attention!
 - Always make nandroid backup before install or updating version, these are just experiments!
