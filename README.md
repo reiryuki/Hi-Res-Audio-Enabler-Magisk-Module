@@ -20,7 +20,7 @@
 - Reboot
 
 ## Troubleshootings
-- Use Audio Modification Library module if you using other modules which also patching audio_policy_configuration.xml like Audio Compatibilty Patch, Dolby Atmos Oneplus 8 Visible, Audio Wizard Zen 5, and Sound Enhancement.
+- Use Audio Modification Library module if you using other modules which also patching audio_policy_configuration.xml like Moto Waves, Audio Compatibilty Patch, Dolby Atmos Oneplus 8 Visible, DTS, and Sound Enhancement.
 - If logcat shows still running in PCM 16 bit, mean your audio primary library is not supported for PCM 24 bit.
 - Any app bit width detection is only detecting .conf file not .xml file, so it's not valid anymore
 - Delete /data/adb/modules/HiResAudio folder via recovery if you facing bootloop and send copied and zipped /data/system/dropbox files for fix
