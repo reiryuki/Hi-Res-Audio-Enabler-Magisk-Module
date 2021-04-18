@@ -5,6 +5,8 @@
 - May causes problems in unsupported hardware and unsupported library.
 
 ## Screenshots
+- https://t.me/audioryukimods/6546
+- https://t.me/audioryukimods/6539
 - https://t.me/audioryukimods/1532
 
 ## Requirements
