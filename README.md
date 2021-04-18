@@ -19,7 +19,7 @@
 - Install the module via Magisk Manager or recovery
 - Install Audio Modification Library Module if you using other audio mods (If other audio mods ain't patching audio policy, so it's not required)
 - Reboot
-- You can check is it applied or not:
+- You can check is it applied or not via Terminal Emulator:
 
   su
 
