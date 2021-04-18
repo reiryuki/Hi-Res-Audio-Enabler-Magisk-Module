@@ -19,6 +19,11 @@
 - Install the module via Magisk Manager or recovery
 - Install Audio Modification Library Module if you using other audio mods (If other audio mods ain't patching audio policy, so it's not required)
 - Reboot
+- You can check is it applied or not:
+
+  su
+
+  `dumpsys media.audio_flinger`
 
 ## Troubleshootings
 - Use Audio Modification Library module if you using other modules which also patching audio policy files like Moto Waves, Audio Compatibilty Patch, Dolby Atmos Oneplus 8 Visible, DTS, and Sound Enhancement.
