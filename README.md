@@ -31,7 +31,7 @@
 - Delete /data/adb/modules/HiResAudio folder via recovery if you facing bootloop and send copied and zipped /data/system/dropbox/ files.
 
 ## Bug Report
-- Sending logcats and ...policy....xml and ...policy....conf files from /system/etc/ and /vendor/etc/ is a must. Otherwise, will be closed immediately.
+- Sending logcats and ...policy....xml and ...policy....conf files from /system/etc/ and /vendor/etc/ is a must. Otherwise, will be closed immediately. Don't send screenshots.
 
 ## Thanks for Donations
 - https://t.me/audioryukimods/2619
