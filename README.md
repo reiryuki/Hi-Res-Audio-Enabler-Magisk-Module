@@ -31,7 +31,15 @@
 - Delete /data/adb/modules/HiResAudio folder via recovery if you facing bootloop and send copied and zipped /data/system/dropbox/ files.
 
 ## Bug Report
-- Sending logcats and ...policy....xml and ...policy....conf files from /system/etc/ and /vendor/etc/ is a must. Otherwise, will be closed immediately. Don't send screenshots.
+- Run at Terminal Emulator:
+  
+  su
+
+  `cp -f $(find /*/etc -name *policy*.xml -o -name *policy*.conf) /sdcard`
+
+  Send all of those stored files in your storage
+ 
+- Full logcats https://play.google.com/store/apps/details?id=com.dp.logcatapp  (Under 5 MB, please don't zip it).
 
 ## Thanks for Donations
 - https://t.me/audioryukimods/2619
