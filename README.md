@@ -1,8 +1,8 @@
 # Hi-Res Audio Enabler Magisk Module
 
 ## Descriptions
-- Enable hi-res audio format PCM 32 bit or 24 bit for deep buffer, & primary output and primary & fast input through modification of audio policy for supported Android devices. 
-- May causes problems in unsupported hardware and unsupported library.
+- Enable hi-res audio format PCM 24 bit or 32 bit through modification of audio policy for supported Android devices. 
+- May causes problems in unsupported hardware or unsupported library.
 
 ## Screenshots
 - https://t.me/audioryukimods/6546
@@ -25,10 +25,21 @@
 
   `dumpsys media.audio_flinger`
 
+- You can check via logcats and filter "bit" to confirm your library is supported or not
+
+## Optional
+- You can run Terminal Emulator:
+
+  su
+
+  `setprop hires.32 1`
+
+  to enable 32 bit instead of 24 bit and reflash the module. Don't do this if you facing speaker issue or logcats shows resetting back to 24 bit.
+
 ## Troubleshootings
 - Use Audio Modification Library module if you using other modules which also patching audio policy files like Moto Waves, Audio Compatibilty Patch, Dolby Atmos Oneplus 8 Visible, DTS, and Sound Enhancement.
 - If logcat shows still running in PCM 16 bit, mean your audio primary library is not supported.
-- Delete /data/adb/modules/HiResAudio folder via recovery if you facing bootloop and send copied and zipped /data/system/dropbox/ files.
+- Delete /data/adb/modules/HiResAudio folder via recovery if you facing bootloop.
 
 ## Bug Report
 - Run at Terminal Emulator:
