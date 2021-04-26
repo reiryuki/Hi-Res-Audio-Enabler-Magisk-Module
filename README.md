@@ -17,7 +17,7 @@
 
 ## Installation Guide
 - Install the module via Magisk Manager or recovery
-- Install Audio Modification Library Module if you using other audio mods (If other audio mods ain't patching audio policy, so it's not required)
+- Install Audio Modification Library Module if you using other audio mods
 - Reboot
 - You can check is it applied or not via Terminal Emulator:
 
@@ -37,7 +37,7 @@
   to enable 32 bit instead of 24 bit and reflash the module. Don't do this if you facing speaker issue or logcats shows resetting back to 24 bit.
 
 ## Troubleshootings
-- Use Audio Modification Library module if you using other modules which also patching audio policy files like Moto Waves, Audio Compatibilty Patch, Dolby Atmos Oneplus 8 Visible, DTS, and Sound Enhancement.
+- Use Audio Modification Library module if you using other audio mods
 - If logcat shows still running in PCM 16 bit, mean your audio primary library is not supported.
 - Delete /data/adb/modules/HiResAudio folder via recovery if you facing bootloop.
 
