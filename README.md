@@ -36,6 +36,14 @@
 
   to enable 32 bit instead of 24 bit and reflash the module. Don't do this if you facing speaker issue or logcats shows resetting back to 24 bit.
 
+- If you're facing low volume issue on speaker, run Terminal Emulator:
+
+  su
+
+  `setprop speaker.16 1`
+
+  Reflash the module after.
+
 ## Troubleshootings
 - Use Audio Modification Library module if you using other audio mods
 - If logcat shows still running in PCM 16 bit, mean your audio primary library is not supported.
