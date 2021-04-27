@@ -34,7 +34,7 @@
 
   `setprop hires.32 1`
 
-  to enable 32 bit instead of 24 bit and reflash the module. Don't do this if you facing speaker issue or logcats shows resetting back to 24 bit.
+  to enable 32 bit instead of 24 bit and reflash the module. Don't do this if you're facing no sound on speaker issue or logcats shows resetting back to 24 bit.
 
 - If you're facing low volume issue on speaker, run Terminal Emulator:
 
