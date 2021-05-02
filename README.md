@@ -36,7 +36,7 @@
 
   to enable 32 bit instead of 24 bit and reflash the module. Don't do this if you're facing no sound issue on speaker or logcats shows resetting back to 24 bit.
 
-- If you're facing low volume issue on speaker, run Terminal Emulator:
+- If you're facing low volume or no sound issue on speaker, run Terminal Emulator:
 
   su
 
