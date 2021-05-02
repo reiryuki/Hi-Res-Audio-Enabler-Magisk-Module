@@ -54,7 +54,7 @@
   
   su
 
-  `cp -f $(find /*/etc -name *policy*.xml -o -name *policy*.conf -o -name *audio*platform*info* ) /sdcard`
+  `cp -f $(find /vendor/etc -maxdepth 1 -name *policy*.xml -o -name *policy*.conf -o -name *audio*platform*info* ) /sdcard`
 
   Send all of those stored files in your storage
  
