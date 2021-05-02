@@ -60,6 +60,8 @@
  
 - Full logcats https://play.google.com/store/apps/details?id=com.dp.logcatapp  (Under 5 MB, please don't zip it).
 
+- If you miss any file, you will be ignored and closed immediately
+
 ## Thanks for Donations
 - https://t.me/audioryukimods/2619
 - https://www.paypal.me/reiryuki
