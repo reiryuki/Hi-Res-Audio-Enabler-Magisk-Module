@@ -27,6 +27,8 @@
 
 - You can check via logcats and filter "bit" to confirm your library is supported or not
 
+- Don't trust any other apps
+
 ## Optional
 - You can run Terminal Emulator:
 
