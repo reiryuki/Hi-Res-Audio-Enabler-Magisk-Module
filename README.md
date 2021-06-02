@@ -71,4 +71,4 @@
 - https://www.paypal.me/reiryuki
 
 ## Download
-- Tap "Releases"
+- Moved link here: https://www.pling.com/p/1532198/
