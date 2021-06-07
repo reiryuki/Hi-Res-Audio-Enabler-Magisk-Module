@@ -5,9 +5,9 @@
 - May causes problems in unsupported hardware or unsupported library.
 
 ## Screenshots
-- https://t.me/audioryukimods/6546
-- https://t.me/audioryukimods/6539
-- https://t.me/audioryukimods/1532
+- https://t.me/androidryukimodsdiscussions/6546
+- https://t.me/androidryukimodsdiscussions/6539
+- https://t.me/androidryukimodsdiscussions/1532
 
 ## Requirements
 - Magisk installed
@@ -67,7 +67,7 @@
 - If you miss any file, you will be ignored and closed immediately
 
 ## Thanks for Donations
-- https://t.me/audioryukimods/2619
+- https://t.me/androidryukimodsdiscussions/2619
 - https://www.paypal.me/reiryuki
 
 ## Download
