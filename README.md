@@ -52,19 +52,7 @@
 - Delete /data/adb/modules/HiResAudio folder via recovery if you facing bootloop.
 
 ## Bug Report
-- Full logcats https://play.google.com/store/apps/details?id=com.dp.logcatapp  (Under 5 MB, please don't zip it).
-
-- Run at Terminal Emulator:
-  
-  su
-
-  `ps -d > /sdcard/ps.txt`
-
-  `cp -f $(find /vendor/etc -maxdepth 1 -name *policy*.xml -o -name *policy*.conf -o -name *audio*platform*info* ) /sdcard`
-
-  Send all of those stored files in your storage
- 
-- If you miss any file, you will be ignored and closed immediately
+- There is no fix. Only ROM and device compatibility.
 
 ## Thanks for Donations
 - https://t.me/androidryukimodsdiscussions/2619
