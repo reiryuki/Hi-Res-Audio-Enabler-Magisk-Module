@@ -25,7 +25,11 @@
 
   `dumpsys media.audio_flinger`
 
-- You can check via logcats and filter "bit" to confirm your library is supported or not
+  If you see any AUDIO_FORMAT_PCM_24_BIT_PACKED or AUDIO_FORMAT_PCM_32_BIT, that is mean applied.
+
+- You can check via logcats and filter "bit" to confirm your library is supported or not.
+  
+  If you see `bitwidth 24` or `bitwidth 32` in `platform_check_codec_backend_cfg` that is mean your device is supported.
 
 - Don't trust any other apps
 
@@ -52,7 +56,7 @@
 - Delete /data/adb/modules/HiResAudio folder via recovery if you facing bootloop.
 
 ## Bug Report
-- There is no fix. Only ROM and device compatibility.
+- There is no fix. Only device compatibility.
 
 ## Thanks for Donations
 - https://t.me/androidryukimodsdiscussions/2619
