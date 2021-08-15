@@ -59,7 +59,8 @@
 - There is no fix. Only device compatibility.
 
 ## Credits and Contributors
-
+- Android Ryuki Mods Discussions Team
+- https://t.me/androidryukimodsdiscussions/25188
 
 ## Thanks for Donations
 - https://t.me/androidryukimodsdiscussions/2619
