@@ -1,8 +1,8 @@
 # Hi-Res Audio Enabler Magisk Module
 
 ## Descriptions
-- Enable hi-res audio format PCM 24 bit or 32 bit through modification of audio policy for supported Android devices. 
-- May causes problems in unsupported hardware or unsupported library.
+- Enable hi-res audio format PCM 24 bit or 32 bit through modification of audio policy if device supported. 
+- May causes problems in unsupported device.
 
 ## Screenshots
 - https://t.me/androidryukimodsdiscussions/6546
@@ -33,7 +33,7 @@
 
 - Don't trust any other apps
 
-## Optional
+## Optionals
 - You can run Terminal Emulator:
 
   su
@@ -57,6 +57,9 @@
 
 ## Bug Report
 - There is no fix. Only device compatibility.
+
+## Credits and Contributors
+
 
 ## Thanks for Donations
 - https://t.me/androidryukimodsdiscussions/2619
