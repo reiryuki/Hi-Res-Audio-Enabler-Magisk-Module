@@ -14,6 +14,7 @@
 
 ## Tested
 - Android 10 arm64 CrDroid ROM
+- Android 11 arm64 DotOS ROM
 
 ## Installation Guide
 - Install the module via Magisk Manager or recovery
