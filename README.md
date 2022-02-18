@@ -1,7 +1,7 @@
 # Hi-Res Audio Enabler Magisk Module
 
 ## Descriptions
-- Enable hi-res audio format PCM 24 bit or 32 bit through modification of audio policy if device supported. 
+- Enable hi-res audio format PCM 24 bit or 32 bit through modification of audio policy if device is supported. 
 - May causes problems in unsupported device.
 
 ## Screenshots
@@ -15,57 +15,27 @@
 ## Tested On
 - Android 10 CrDroid ROM
 - Android 11 DotOS ROM
+- Android 12 Ancient OS ROM
 
 ## Installation Guide
 - Install the module via Magisk Manager or recovery
-- Install Audio Modification Library Module if you using other audio mods
+- Install Audio Modification Library Module if you using any other audio mods
 - Reboot
-- You can check is it applied or not via Terminal Emulator:
 
-  su
-
-  `dumpsys media.audio_flinger`
-
-  If you see any AUDIO_FORMAT_PCM_24_BIT_PACKED or AUDIO_FORMAT_PCM_32_BIT, that is mean applied.
-
-- You can check via logcats and filter "bit" to confirm your library is supported or not.
-  
-  If you see `bitwidth 24` or `bitwidth 32` in `platform_check_codec_backend_cfg` that is mean your device is supported.
-
-- Don't trust any other apps
-
-## Optionals
-- You can run Terminal Emulator:
-
-  su
-
-  `setprop hires.32 1`
-
-  to enable 32 bit instead of 24 bit and reflash the module. Don't do this if you're facing no sound issue on speaker or logcats shows resetting back to 24 bit.
-
-- If you're facing low volume or no sound issue on speaker, run Terminal Emulator:
-
-  su
-
-  `setprop speaker.16 1`
-
-  Reflash the module after.
-
-## Troubleshootings
-- Use Audio Modification Library module if you using other audio mods
-- If logcat shows still running in PCM 16 bit, mean your audio primary library is not supported.
-- Delete /data/adb/modules/HiResAudio folder via recovery if you facing bootloop.
+## Optionals & Troubleshootings
+- https://t.me/androidryukimodsdiscussions/58223
 
 ## Bug Report
 - There is no fix. Only device compatibility.
 
 ## Credits and Contributors
-- Android Ryuki Mods Discussions Team
-- https://t.me/androidryukimodsdiscussions/25188
+- https://t.me/viperatmos
+- https://t.me/androidryukimodsdiscussions
+- https://t.me/androidappsportdevelopment
 
 ## Thanks for Donations
 - https://t.me/androidryukimodsdiscussions/2619
 - https://www.paypal.me/reiryuki
 
 ## Download
-- Moved link here: https://www.pling.com/p/1532198/
+- https://www.pling.com/p/1532198/
