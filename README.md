@@ -20,6 +20,7 @@
 - Install the module via Magisk Manager or recovery
 - Install Audio Modification Library Module if you using any other audio mods
 - Reboot
+- For checking is it applied or not, read Troubleshootings bellow!
 
 ## Optionals & Troubleshootings
 - https://t.me/androidryukimodsdiscussions/58223
