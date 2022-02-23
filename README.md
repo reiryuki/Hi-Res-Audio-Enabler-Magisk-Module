@@ -26,7 +26,7 @@
 - https://t.me/androidryukimodsdiscussions/58223
 
 ## Bug Report
-- There is no fix. Only device compatibility.
+- Do not asking for fix. There is no fix. Only device compatibility.
 
 ## Credits and Contributors
 - https://t.me/viperatmos
