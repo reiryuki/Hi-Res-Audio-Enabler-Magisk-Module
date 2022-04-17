@@ -1,5 +1,12 @@
 ui_print " "
 
+# magisk
+if [ -d /sbin/.magisk ]; then
+  MAGISKTMP=/sbin/.magisk
+else
+  MAGISKTMP=`find /dev -mindepth 2 -maxdepth 2 -type d -name .magisk`
+fi
+
 # info
 MODVER=`grep_prop version $MODPATH/module.prop`
 MODVERCODE=`grep_prop versionCode $MODPATH/module.prop`
@@ -47,8 +54,8 @@ fi
 # force 32
 if getprop | grep -Eq "hires.32\]: \[1"; then
   ui_print "- Forcing audio format PCM to 32 bit instead of 24 bit..."
-  sed -i 's/#h//g' $MODPATH/.aml.sh
-  sed -i 's/#h//g' $MODPATH/service.sh
+  sed -i 's/#32//g' $MODPATH/.aml.sh
+  sed -i 's/#32//g' $MODPATH/service.sh
   sed -i 's/enforce_mode 24/enforce_mode 32/g' $MODPATH/service.sh
   sed -i 's/24 bit/32 bit/g' $MODPATH/module.prop
   ui_print " "
@@ -63,11 +70,16 @@ if getprop | grep -Eq "hires.float\]: \[1"; then
   ui_print " "
 fi
 
-# speaker 16
-if getprop | grep -Eq "speaker.16\]: \[1"; then
+# speaker
+if getprop | grep -Eq "speaker.bit\]: \[16"; then
   ui_print "- Forcing audio format PCM 16 bit to internal speaker..."
-  sed -i 's/#s//g' $MODPATH/.aml.sh
+  sed -i 's/#s16//g' $MODPATH/.aml.sh
   sed -i 's/playback/playback and low resolution to internal speaker/g' $MODPATH/module.prop
+  ui_print " "
+elif getprop | grep -Eq "hires.32\]: \[1" && getprop | grep -Eq "speaker.bit\]: \[24"; then
+  ui_print "- Forcing audio format PCM 24 bit to internal speaker..."
+  sed -i 's/#s24//g' $MODPATH/.aml.sh
+  sed -i 's/playback/playback and 24 bit to internal speaker/g' $MODPATH/module.prop
   ui_print " "
 fi
 
@@ -122,13 +134,15 @@ DIR=`find $MODPATH/system/vendor -type d`
 for DIRS in $DIR; do
   chown 0.2000 $DIRS
 done
-if [ "$API" -gt 25 ]; then
-  magiskpolicy "dontaudit { vendor_file vendor_configs_file } labeledfs filesystem associate"
-  magiskpolicy "allow     { vendor_file vendor_configs_file } labeledfs filesystem associate"
-  magiskpolicy "dontaudit init { vendor_file vendor_configs_file } dir relabelfrom"
-  magiskpolicy "allow     init { vendor_file vendor_configs_file } dir relabelfrom"
-  magiskpolicy "dontaudit init { vendor_file vendor_configs_file } file relabelfrom"
-  magiskpolicy "allow     init { vendor_file vendor_configs_file } file relabelfrom"
+if [ "$API" -ge 26 ]; then
+  magiskpolicy --live "type vendor_file"
+  magiskpolicy --live "type vendor_configs_file"
+  magiskpolicy --live "dontaudit { vendor_file vendor_configs_file } labeledfs filesystem associate"
+  magiskpolicy --live "allow     { vendor_file vendor_configs_file } labeledfs filesystem associate"
+  magiskpolicy --live "dontaudit init { vendor_file vendor_configs_file } dir relabelfrom"
+  magiskpolicy --live "allow     init { vendor_file vendor_configs_file } dir relabelfrom"
+  magiskpolicy --live "dontaudit init { vendor_file vendor_configs_file } file relabelfrom"
+  magiskpolicy --live "allow     init { vendor_file vendor_configs_file } file relabelfrom"
   chcon -R u:object_r:vendor_file:s0 $MODPATH/system/vendor
   chcon -R u:object_r:vendor_configs_file:s0 $MODPATH/system/vendor/etc
   chcon -R u:object_r:vendor_configs_file:s0 $MODPATH/system/vendor/odm/etc
