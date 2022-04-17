@@ -1,7 +1,7 @@
 # Hi-Res Audio Enabler Magisk Module
 
 ## Descriptions
-- Enable hi-res audio format PCM 24 bit or 32 bit through modification of audio policy if device is supported. 
+- Enables hi-res audio format PCM 24 bit or 32 bit through modification of audio policy if device is supported. 
 - May causes problems in unsupported device.
 
 ## Screenshots
@@ -15,6 +15,7 @@
 ## Tested On
 - Android 10 CrDroid ROM
 - Android 11 DotOS ROM
+- Android 12 AncientOS ROM
 
 ## Installation Guide
 - Install the module via Magisk Manager or recovery
@@ -23,6 +24,8 @@
 - For checking is it applied or not, read Troubleshootings bellow!
 
 ## Optionals & Troubleshootings
+- https://t.me/androidryukimodsdiscussions/60861
+- https://t.me/androidryukimodsdiscussions/29836
 - https://t.me/androidryukimodsdiscussions/58223
 
 ## Bug Report
