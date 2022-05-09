@@ -2,7 +2,8 @@
 
 ## Descriptions
 - Enables hi-res audio format PCM 24 bit or 32 bit through modification of audio policy if device is supported. 
-- May causes problems in unsupported device.
+- Causes no sound issue in unsupported ROM/device.
+- Not for Bluetooth audio
 
 ## Screenshots
 - https://t.me/androidryukimodsdiscussions/6546
