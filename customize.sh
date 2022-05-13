@@ -128,6 +128,14 @@ elif getprop | grep -Eq "sample.rate\]: \[384"; then
   ui_print " "
 fi
 
+# other
+FILE=$MODPATH/service.sh
+if getprop | grep -Eq "other.etc\]: \[1"; then
+  ui_print "- Activating other etc files bind mount..."
+  sed -i 's/#p//g' $FILE
+  ui_print " "
+fi
+
 # permission
 ui_print "- Setting permission..."
 DIR=`find $MODPATH/system/vendor -type d`
