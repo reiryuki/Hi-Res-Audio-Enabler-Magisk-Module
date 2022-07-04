@@ -15,18 +15,6 @@ resetprop audio.offload.pcm.16bit.enabled true
 resetprop -p --delete persist.vendor.audio_hal.dsp_bit_width_enforce_mode
 resetprop -n persist.vendor.audio_hal.dsp_bit_width_enforce_mode 24
 
-# function
-restart_audioserver() {
-if [ "$API" -ge 24 ]; then
-  killall audioserver
-else
-  killall mediaserver
-fi
-}
-
-# restart
-restart_audioserver
-
 # wait
 sleep 20
 
@@ -63,13 +51,16 @@ if [ -d /my_product/etc ] && [ "$FILE" ]; then
     fi
   done
 fi
-if ( [ `realpath /odm/etc` == /odm/etc ] && [ "$FILE" ] )\
-|| ( [ -d /my_product/etc ] && [ "$FILE" ] ); then
-  restart_audioserver
-fi
 }
 
 # mount
 #pbind_other_etc
+
+# restart
+if [ "$API" -ge 24 ]; then
+  killall audioserver
+else
+  killall mediaserver
+fi
 
 

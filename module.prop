@@ -1,7 +1,7 @@
 id=HiResAudio
 name=Hi-Res Audio Enabler
-version=v3.0-R
-versionCode=20
+version=v3.1-beta.1
+versionCode=21
 author=Rei Ryuki the Fixer
 description=Enables high resolution audio format PCM 24 bit to deep buffer playback output through modification of audio policy for any supported Android devices.
 
