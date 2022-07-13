@@ -20,7 +20,7 @@
 
 ## Installation Guide
 - Install the module via Magisk Manager or recovery
-- Install Audio Modification Library Module if you using any other audio mods
+- This is also an audio mod, so, you need to install AML module if using any other audio mod module.
 - Reboot
 - For checking is it applied or not, read Troubleshootings bellow!
 
