@@ -63,7 +63,7 @@ if [ "$VOA" ]; then
   cp -f $VOA $MODVOETC
 fi
 if [ "$VAA" ]; then
-  cp -f $VAA $MODVOETC/audio
+  cp -f $VAA $MODVETC/audio
 fi
 if [ "$VBA" ]; then
   cp -f $VBA $MODVETC/audio/"$PROP"
