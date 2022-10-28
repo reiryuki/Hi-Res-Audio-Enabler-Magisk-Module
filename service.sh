@@ -26,14 +26,8 @@ fi
 
 # function
 bind_other_etc() {
-NAME="*policy*.conf -o -name *policy*.xml -o -name *audio*platform*info*.xml"
-if [ ! -d $AML ] || [ -f $AML/disable ]; then
-  DIR=$MODPATH/system/vendor
-else
-  DIR=$AML/system/vendor
-fi
 FILE=`find $DIR/etc -maxdepth 1 -type f -name $NAME`
-if [ `realpath /odm/etc` == /odm/etc ] && [ "$FILE" ]; then
+if [ "`realpath /odm/etc`" == /odm/etc ] && [ "$FILE" ]; then
   for i in $FILE; do
     j="/odm$(echo $i | sed "s|$DIR||")"
     if [ -f $j ]; then
@@ -54,13 +48,27 @@ fi
 }
 
 # mount
-#pbind_other_etc
+NAME="*policy*.conf -o -name *policy*.xml -o -name *audio*platform*info*.xml"
+if [ -d $AML ] && [ ! -f $AML/disable ]\
+&& find $AML/system/vendor -type f -name $NAME; then
+  DIR=$AML/system/vendor
+#p  bind_other_etc
+else
+  DIR=$MODPATH/system/vendor
+  bind_other_etc
+fi
 
 # restart
 if [ "$API" -ge 24 ]; then
-  killall audioserver
+  PID=`pidof audioserver`
+  if [ "$PID" ]; then
+    killall audioserver
+  fi
 else
-  killall mediaserver
+  PID=`pidof mediaserver`
+  if [ "$PID" ]; then
+    killall mediaserver
+  fi
 fi
 
 

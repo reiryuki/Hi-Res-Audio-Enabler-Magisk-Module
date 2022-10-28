@@ -1,11 +1,27 @@
-ui_print " "
+# space
+if [ "$BOOTMODE" == true ]; then
+  ui_print " "
+fi
 
 # magisk
 if [ -d /sbin/.magisk ]; then
   MAGISKTMP=/sbin/.magisk
 else
-  MAGISKTMP=`find /dev -mindepth 2 -maxdepth 2 -type d -name .magisk`
+  MAGISKTMP=`realpath /dev/*/.magisk`
 fi
+
+# path
+if [ "$BOOTMODE" == true ]; then
+  MIRROR=$MAGISKTMP/mirror
+else
+  MIRROR=
+fi
+SYSTEM=`realpath $MIRROR/system`
+PRODUCT=`realpath $MIRROR/product`
+VENDOR=`realpath $MIRROR/vendor`
+SYSTEM_EXT=`realpath $MIRROR/system/system_ext`
+ODM=`realpath /odm`
+MY_PRODUCT=`realpath /my_product`
 
 # optionals
 OPTIONALS=/sdcard/optionals.prop
@@ -20,11 +36,15 @@ ui_print " MagiskVersion=$MAGISK_VER"
 ui_print " MagiskVersionCode=$MAGISK_VER_CODE"
 ui_print " "
 
-# sepolicy.rule
+# mount
 if [ "$BOOTMODE" != true ]; then
+  mount -o rw -t auto /dev/block/bootdevice/by-name/cust /vendor
+  mount -o rw -t auto /dev/block/bootdevice/by-name/vendor /vendor
   mount -o rw -t auto /dev/block/bootdevice/by-name/persist /persist
   mount -o rw -t auto /dev/block/bootdevice/by-name/metadata /metadata
 fi
+
+# sepolicy.rule
 FILE=$MODPATH/sepolicy.sh
 DES=$MODPATH/sepolicy.rule
 if [ -f $FILE ] && [ "`grep_prop sepolicy.sh $OPTIONALS`" != 1 ]; then
@@ -45,8 +65,17 @@ rm -rf /data/unencrypted/magisk/$MODID
 rm -rf /cache/magisk/$MODID
 ui_print " "
 
+# pcm
+if [ "`grep_prop hires.pcm $OPTIONALS`" == 0 ]; then
+  ui_print "- Disable audio format PCM patches & only using system"
+  ui_print "  property & audio platform info patches..."
+  sed -i 's/#c//g' $MODPATH/.aml.sh
+  ui_print " "
+fi
+
 # primary
-if [ "`grep_prop hires.primary $OPTIONALS`" == 1 ]; then
+if [ "`grep_prop hires.primary $OPTIONALS`" == 1 ]\
+&& [ "`grep_prop hires.pcm $OPTIONALS`" != 0 ]; then
   ui_print "- Enable Hi-Res to low latency playback (primary) output..."
   sed -i 's/#p//g' $MODPATH/.aml.sh
   sed -i 's/buffer/buffer and low latency/g' $MODPATH/module.prop
@@ -64,7 +93,8 @@ if [ "`grep_prop hires.32 $OPTIONALS`" == 1 ]; then
 fi
 
 # force float
-if [ "`grep_prop hires.float $OPTIONALS`" == 1 ]; then
+if [ "`grep_prop hires.float $OPTIONALS`" == 1 ]\
+&& [ "`grep_prop hires.pcm $OPTIONALS`" != 0 ]; then
   ui_print "- Enable audio format PCM float..."
   sed -i 's/#f//g' $MODPATH/.aml.sh
   sed -i 's/24 bit/24 bit and float/g' $MODPATH/module.prop
@@ -87,43 +117,57 @@ elif [ "`grep_prop hires.32 $OPTIONALS`" == 1 ]\
 fi
 
 # sampling rates
-if [ "`grep_prop sample.rate $OPTIONALS`" == 88 ]; then
+if [ "`grep_prop sample.rate $OPTIONALS`" == 44 ]\
+&& [ "`grep_prop hires.pcm $OPTIONALS`" != 0 ]; then
+  ui_print "- Forcing sample rate to 44100..."
+  sed -i 's/|48000//g' $MODPATH/.aml.sh
+  sed -i 's/,48000//g' $MODPATH/.aml.sh
+  sed -i 's/bit/bit with sample rate 44100/g' $MODPATH/module.prop
+  ui_print " "
+elif [ "`grep_prop sample.rate $OPTIONALS`" == 88 ]\
+&& [ "`grep_prop hires.pcm $OPTIONALS`" != 0 ]; then
   ui_print "- Forcing sample rate to 88200..."
   sed -i 's/|48000/|48000|88200/g' $MODPATH/.aml.sh
   sed -i 's/,48000/,48000,88200/g' $MODPATH/.aml.sh
   sed -i 's/bit/bit with sample rate 88200/g' $MODPATH/module.prop
   ui_print " "
-elif [ "`grep_prop sample.rate $OPTIONALS`" == 96 ]; then
+elif [ "`grep_prop sample.rate $OPTIONALS`" == 96 ]\
+&& [ "`grep_prop hires.pcm $OPTIONALS`" != 0 ]; then
   ui_print "- Forcing sample rate to 96000..."
   sed -i 's/|48000/|48000|88200|96000/g' $MODPATH/.aml.sh
   sed -i 's/,48000/,48000,88200,96000/g' $MODPATH/.aml.sh
   sed -i 's/bit/bit with sample rate 96000/g' $MODPATH/module.prop
   ui_print " "
-elif [ "`grep_prop sample.rate $OPTIONALS`" == 128 ]; then
+elif [ "`grep_prop sample.rate $OPTIONALS`" == 128 ]\
+&& [ "`grep_prop hires.pcm $OPTIONALS`" != 0 ]; then
   ui_print "- Forcing sample rate to 128000..."
   sed -i 's/|48000/|48000|88200|96000|128000/g' $MODPATH/.aml.sh
   sed -i 's/,48000/,48000,88200,96000,128000/g' $MODPATH/.aml.sh
   sed -i 's/bit/bit with sample rate 128000/g' $MODPATH/module.prop
   ui_print " "
-elif [ "`grep_prop sample.rate $OPTIONALS`" == 176 ]; then
+elif [ "`grep_prop sample.rate $OPTIONALS`" == 176 ]\
+&& [ "`grep_prop hires.pcm $OPTIONALS`" != 0 ]; then
   ui_print "- Forcing sample rate to 176400..."
   sed -i 's/|48000/|48000|88200|96000|128000|176400/g' $MODPATH/.aml.sh
   sed -i 's/,48000/,48000,88200,96000,128000,176400/g' $MODPATH/.aml.sh
   sed -i 's/bit/bit with sample rate 192000/g' $MODPATH/module.prop
   ui_print " "
-elif [ "`grep_prop sample.rate $OPTIONALS`" == 192 ]; then
+elif [ "`grep_prop sample.rate $OPTIONALS`" == 192 ]\
+&& [ "`grep_prop hires.pcm $OPTIONALS`" != 0 ]; then
   ui_print "- Forcing sample rate to 192000..."
   sed -i 's/|48000/|48000|88200|96000|128000|176400|192000/g' $MODPATH/.aml.sh
   sed -i 's/,48000/,48000,88200,96000,128000,176400,192000/g' $MODPATH/.aml.sh
   sed -i 's/bit/bit with sample rate 192000/g' $MODPATH/module.prop
   ui_print " "
-elif [ "`grep_prop sample.rate $OPTIONALS`" == 352 ]; then
+elif [ "`grep_prop sample.rate $OPTIONALS`" == 352 ]\
+&& [ "`grep_prop hires.pcm $OPTIONALS`" != 0 ]; then
   ui_print "- Forcing sample rate to 352800..."
   sed -i 's/|48000/|48000|88200|96000|128000|176400|192000|352800/g' $MODPATH/.aml.sh
   sed -i 's/,48000/,48000,88200,96000,128000,176400,192000,352800/g' $MODPATH/.aml.sh
   sed -i 's/bit/bit with sample rate 352800/g' $MODPATH/module.prop
   ui_print " "
-elif [ "`grep_prop sample.rate $OPTIONALS`" == 384 ]; then
+elif [ "`grep_prop sample.rate $OPTIONALS`" == 384 ]\
+&& [ "`grep_prop hires.pcm $OPTIONALS`" != 0 ]; then
   ui_print "- Forcing sample rate to 384000..."
   sed -i 's/|48000/|48000|88200|96000|128000|176400|192000|352800|384000/g' $MODPATH/.aml.sh
   sed -i 's/,48000/,48000,88200,96000,128000,176400,192000,352800,384000/g' $MODPATH/.aml.sh
@@ -140,12 +184,13 @@ if [ "`grep_prop other.etc $OPTIONALS`" == 1 ]; then
 fi
 
 # permission
-ui_print "- Setting permission..."
-DIR=`find $MODPATH/system/vendor -type d`
-for DIRS in $DIR; do
-  chown 0.2000 $DIRS
-done
-ui_print " "
-
+if [ "$API" -ge 26 ]; then
+  ui_print "- Setting permission..."
+  DIR=`find $MODPATH/system/vendor -type d`
+  for DIRS in $DIR; do
+    chown 0.2000 $DIRS
+  done
+  ui_print " "
+fi
 
 

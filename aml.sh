@@ -5,6 +5,8 @@ MODAPC=`find $MODPATH/system -type f -name *policy*.conf`
 MODAPX=`find $MODPATH/system -type f -name *policy*.xml`
 MODAPI=`find $MODPATH/system -type f -name *audio*platform*info*.xml`
 
+# function
+patch_audio_format_pcm() {
 # patch audio policy conf
 if [ "$MODAPC" ]; then
   if ! grep -Eq deep_buffer_24 $MODAPC; then
@@ -66,7 +68,6 @@ if [ "$MODAPC" ]; then
 #f#p  }' $MODAPC
 #f#p  fi
 fi
-
 # patch audio policy xml
 if [ "$MODAPX" ]; then
   sed -i '/AUDIO_OUTPUT_FLAG_DEEP_BUFFER/a\
@@ -100,6 +101,10 @@ if [ "$MODAPX" ]; then
 #f#p                             samplingRates="44100,48000"\
 #f#p                             channelMasks="AUDIO_CHANNEL_OUT_STEREO,AUDIO_CHANNEL_OUT_MONO"/>' $MODAPX
 fi
+}
+
+# patch audio format pcm
+#cpatch_audio_format_pcm
 
 # patch audio platform info
 if [ "$MODAPI" ]; then
