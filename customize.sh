@@ -69,8 +69,9 @@ ui_print " "
 if [ "`grep_prop hires.pcm $OPTIONALS`" == 0 ]; then
   ui_print "- Disable audio format PCM patches & only using system"
   ui_print "  property & audio platform info patches..."
-  sed -i 's/#c//g' $MODPATH/.aml.sh
   ui_print " "
+else
+  sed -i 's/#c//g' $MODPATH/.aml.sh
 fi
 
 # primary
