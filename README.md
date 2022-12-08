@@ -14,8 +14,8 @@
 - Magisk installed
 
 ## Installation Guide & Download Link
-- Install this module https://www.pling.com/p/1532198/ via Magisk Manager or Recovery
-- This is also an audio mod so, you need to install AML Magisk Module https://zackptg5.com/android.php#aml if using any other audio mod module
+- Install this module https://www.pling.com/p/1532198/ via Magisk app or Recovery
+- This is also an audio mod so, you need to install AML Magisk Module https://t.me/androidryukimodsdiscussions/29836 if using any other audio mod module
 - Reboot
 - For checking is it applied or not, read Hi-Res Troubleshootings bellow!
 

@@ -1,6 +1,10 @@
 mount -o rw,remount /data
-MODPATH=${0%/*}
-MODID=`echo "$MODPATH" | sed 's|/data/adb/modules/||'`
+if [ ! "$MODPATH" ]; then
+  MODPATH=${0%/*}
+fi
+if [ ! "$MODID" ]; then
+  MODID=`echo "$MODPATH" | sed 's|/data/adb/modules/||' | sed 's|/data/adb/modules_update/||'`
+fi
 
 # cleaning
 resetprop -p --delete persist.vendor.audio_hal.dsp_bit_width_enforce_mode

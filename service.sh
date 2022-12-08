@@ -24,10 +24,25 @@ if [ -d $DIR ] && [ ! -f $AML/disable ]; then
   chcon -R u:object_r:vendor_configs_file:s0 $DIR
 fi
 
+# magisk
+if [ -d /sbin/.magisk ]; then
+  MAGISKTMP=/sbin/.magisk
+else
+  MAGISKTMP=`realpath /dev/*/.magisk`
+fi
+
+# path
+MIRROR=$MAGISKTMP/mirror
+SYSTEM=`realpath $MIRROR/system`
+VENDOR=`realpath $MIRROR/vendor`
+ODM=`realpath $MIRROR/odm`
+MY_PRODUCT=`realpath $MIRROR/my_product`
+
 # function
 bind_other_etc() {
 FILE=`find $DIR/etc -maxdepth 1 -type f -name $NAME`
-if [ "`realpath /odm/etc`" == /odm/etc ] && [ "$FILE" ]; then
+if [ ! -d $ODM ] && [ "`realpath /odm/etc`" == /odm/etc ]\
+&& [ "$FILE" ]; then
   for i in $FILE; do
     j="/odm$(echo $i | sed "s|$DIR||")"
     if [ -f $j ]; then
@@ -36,7 +51,8 @@ if [ "`realpath /odm/etc`" == /odm/etc ] && [ "$FILE" ]; then
     fi
   done
 fi
-if [ -d /my_product/etc ] && [ "$FILE" ]; then
+if [ ! -d $MY_PRODUCT ] && [ -d /my_product/etc ]\
+&& [ "$FILE" ]; then
   for i in $FILE; do
     j="/my_product$(echo $i | sed "s|$DIR||")"
     if [ -f $j ]; then
