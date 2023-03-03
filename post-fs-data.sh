@@ -8,9 +8,9 @@ exec 2>$MODPATH/debug-pfsd.log
 set -x
 
 # run
-FILE=$MODPATH/sepolicy.sh
+FILE=$MODPATH/sepolicy.pfsd
 if [ -f $FILE ]; then
-  . $FILE
+  magiskpolicy --live --apply $FILE
 fi
 
 # context
@@ -58,7 +58,7 @@ if [ -d $VETC/audio/"$PROP" ]; then
 fi
 
 # audio files
-NAME="*policy*.conf -o -name *policy*.xml -o -name *audio*platform*info*.xml"
+NAME="*policy*.conf -o -name *policy*.xml -o -name *audio*platform*info*.xml -o -name *mixer*paths*.xml"
 rm -f `find $MODPATH/system -type f -name $NAME`
 A=`find $ETC -maxdepth 1 -type f -name $NAME`
 VA=`find $VETC -maxdepth 1 -type f -name $NAME`
@@ -113,5 +113,8 @@ rm -f `find $MODPATH/system -type f -name *policy*volume*.xml`
 
 # run
 . $MODPATH/.aml.sh
+
+
+
 
 

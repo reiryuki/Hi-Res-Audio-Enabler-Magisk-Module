@@ -4,6 +4,7 @@ MODPATH=${0%/*}
 MODAPC=`find $MODPATH/system -type f -name *policy*.conf`
 MODAPX=`find $MODPATH/system -type f -name *policy*.xml`
 MODAPI=`find $MODPATH/system -type f -name *audio*platform*info*.xml`
+MODMP=`find $MODPATH/system -type f -name *mixer*paths*.xml`
 
 # function
 patch_audio_format_pcm() {
@@ -132,5 +133,19 @@ if [ "$MODAPI" ]; then
 #s24  sed -i 's/<device name="SND_DEVICE_OUT_SPEAKER" bit_width="16"/<device name="SND_DEVICE_OUT_SPEAKER" bit_width="24"/g' $MODAPI
 #s24  sed -i 's/<device name="SND_DEVICE_OUT_SPEAKER" bit_width="32"/<device name="SND_DEVICE_OUT_SPEAKER" bit_width="24"/g' $MODAPI
 fi
+
+# patch mixer path
+if [ "$MODMP" ]; then
+  if ! grep -Eq hph-highquality-mode $MODMP; then
+    sed -i '/<\/mixer>/i\
+    <path name="hph-highquality-mode">\
+    <\/path>\' $MODMP
+  fi
+fi
+
+
+
+
+
 
 

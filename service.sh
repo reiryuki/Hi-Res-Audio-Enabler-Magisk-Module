@@ -15,6 +15,17 @@ resetprop audio.offload.pcm.16bit.enabled true
 resetprop -p --delete persist.vendor.audio_hal.dsp_bit_width_enforce_mode
 resetprop -n persist.vendor.audio_hal.dsp_bit_width_enforce_mode 24
 
+# restart
+if [ "$API" -ge 24 ]; then
+  SERVER=audioserver
+else
+  SERVER=mediaserver
+fi
+PID=`pidof $SERVER`
+if [ "$PID" ]; then
+  killall $SERVER
+fi
+
 # wait
 sleep 20
 
@@ -40,31 +51,31 @@ MY_PRODUCT=`realpath $MIRROR/my_product`
 
 # function
 bind_other_etc() {
-FILE=`find $DIR/etc -maxdepth 1 -type f -name $NAME`
+FILES=`find $DIR/etc -maxdepth 1 -type f -name $NAME`
 if [ ! -d $ODM ] && [ "`realpath /odm/etc`" == /odm/etc ]\
-&& [ "$FILE" ]; then
-  for i in $FILE; do
-    j="/odm$(echo $i | sed "s|$DIR||")"
-    if [ -f $j ]; then
-      umount $j
-      mount -o bind $i $j
+&& [ "$FILES" ]; then
+  for FILE in $FILES; do
+    DES="/odm$(echo $FILE | sed "s|$DIR||")"
+    if [ -f $DES ]; then
+      umount $DES
+      mount -o bind $FILE $DES
     fi
   done
 fi
 if [ ! -d $MY_PRODUCT ] && [ -d /my_product/etc ]\
-&& [ "$FILE" ]; then
-  for i in $FILE; do
-    j="/my_product$(echo $i | sed "s|$DIR||")"
-    if [ -f $j ]; then
-      umount $j
-      mount -o bind $i $j
+&& [ "$FILES" ]; then
+  for FILE in $FILES; do
+    DES="/my_product$(echo $FILE | sed "s|$DIR||")"
+    if [ -f $DES ]; then
+      umount $DES
+      mount -o bind $FILE $DES
     fi
   done
 fi
 }
 
 # mount
-NAME="*policy*.conf -o -name *policy*.xml -o -name *audio*platform*info*.xml"
+NAME="*policy*.conf -o -name *policy*.xml -o -name *audio*platform*info*.xml -o -name *mixer*paths*.xml"
 if [ -d $AML ] && [ ! -f $AML/disable ]\
 && find $AML/system/vendor -type f -name $NAME; then
   DIR=$AML/system/vendor
@@ -74,17 +85,9 @@ else
   bind_other_etc
 fi
 
-# restart
-if [ "$API" -ge 24 ]; then
-  PID=`pidof audioserver`
-  if [ "$PID" ]; then
-    killall audioserver
-  fi
-else
-  PID=`pidof mediaserver`
-  if [ "$PID" ]; then
-    killall mediaserver
-  fi
-fi
+
+
+
+
 
 

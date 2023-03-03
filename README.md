@@ -1,9 +1,10 @@
 # Hi-Res Audio Enabler Magisk Module
 
 ## Descriptions
-- Enables hi-res audio format PCM 24 bit or 32 bit through modification of audio policy if device is supported
+- Enables high resolution 24 or 32 bit width audio output if device is supported.
 - Causes no sound issue in unsupported device
 - Not for Bluetooth audio
+- Adds path name hph-highquality-mode to mixer path if not available yet
 
 ## Screenshots
 - https://t.me/androidryukimodsdiscussions/6546
@@ -17,7 +18,7 @@
 - Install this module https://www.pling.com/p/1532198/ via Magisk app or Recovery
 - This is also an audio mod so, you need to install AML Magisk Module https://t.me/androidryukimodsdiscussions/29836 if using any other audio mod module
 - Reboot
-- For checking is it applied or not, read Hi-Res Troubleshootings bellow!
+- For checking is it applied or not, read Troubleshootings bellow!
 
 ## Optionals & Troubleshootings
 - https://t.me/androidryukimodsdiscussions/60861
@@ -35,9 +36,7 @@
 - Android 12.1 Nusantara ROM
 - Android 13 Nusantara ROM
 - Android 13 AOSP ROM
-
-## Known Issue
-- Audio format PCM patch does not applied at the first boot in Android 13 AOSP ROM.
+- Android 13 CrDroid ROM
 
 ## Credits and contributors
 - https://t.me/viperatmos
