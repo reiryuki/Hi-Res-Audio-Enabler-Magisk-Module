@@ -1,118 +1,108 @@
 mount -o rw,remount /data
 MODPATH=${0%/*}
-API=`getprop ro.build.version.sdk`
-AML=/data/adb/modules/aml
 
-# debug
+# log
 exec 2>$MODPATH/debug-pfsd.log
 set -x
 
-# run
-FILE=$MODPATH/sepolicy.pfsd
+# var
+API=`getprop ro.build.version.sdk`
+ABI=`getprop ro.product.cpu.abi`
+
+# function
+permissive() {
+if [ "$SELINUX" == Enforcing ]; then
+  if ! setenforce 0; then
+    echo 0 > /sys/fs/selinux/enforce
+  fi
+fi
+}
+magisk_permissive() {
+if [ "$SELINUX" == Enforcing ]; then
+  if [ -x "`command -v magiskpolicy`" ]; then
+	magiskpolicy --live "permissive *"
+  else
+	$MODPATH/$ABI/libmagiskpolicy.so --live "permissive *"
+  fi
+fi
+}
+sepolicy_sh() {
 if [ -f $FILE ]; then
-  magiskpolicy --live --apply $FILE
-fi
-
-# context
-if [ "$API" -ge 26 ]; then
-  chcon -R u:object_r:vendor_file:s0 $MODPATH/system/vendor
-  chcon -R u:object_r:vendor_configs_file:s0 $MODPATH/system/vendor/etc
-  chcon -R u:object_r:vendor_configs_file:s0 $MODPATH/system/vendor/odm/etc
-  chcon -R u:object_r:vendor_configs_file:s0 $MODPATH/system/odm/etc
-fi
-
-# magisk
-if [ -d /sbin/.magisk ]; then
-  MAGISKTMP=/sbin/.magisk
-else
-  MAGISKTMP=`realpath /dev/*/.magisk`
-fi
-
-# path
-MIRROR=$MAGISKTMP/mirror
-SYSTEM=`realpath $MIRROR/system`
-VENDOR=`realpath $MIRROR/vendor`
-ODM=`realpath $MIRROR/odm`
-MY_PRODUCT=`realpath $MIRROR/my_product`
-ETC=$SYSTEM/etc
-VETC=$VENDOR/etc
-VOETC=$VENDOR/odm/etc
-OETC=$ODM/etc
-MPETC=$MY_PRODUCT/etc
-MODETC=$MODPATH/system/etc
-MODVETC=$MODPATH/system/vendor/etc
-MODVOETC=$MODPATH/system/vendor/odm/etc
-MODOETC=$MODPATH/system/odm/etc
-MODMPETC=$MODPATH/system/my_product/etc
-
-# directory
-SKU=`ls $VETC/audio | grep sku_`
-if [ "$SKU" ]; then
-  for SKUS in $SKU; do
-    mkdir -p $MODVETC/audio/$SKUS
-  done
-fi
-PROP=`getprop ro.build.product`
-if [ -d $VETC/audio/"$PROP" ]; then
-  mkdir -p $MODVETC/audio/"$PROP"
-fi
-
-# audio files
-NAME="*policy*.conf -o -name *policy*.xml -o -name *audio*platform*info*.xml -o -name *mixer*paths*.xml"
-rm -f `find $MODPATH/system -type f -name $NAME`
-A=`find $ETC -maxdepth 1 -type f -name $NAME`
-VA=`find $VETC -maxdepth 1 -type f -name $NAME`
-VOA=`find $VOETC -maxdepth 1 -type f -name $NAME`
-VAA=`find $VETC/audio -maxdepth 1 -type f -name $NAME`
-VBA=`find $VETC/audio/"$PROP" -maxdepth 1 -type f -name $NAME`
-OA=`find $OETC -maxdepth 1 -type f -name $NAME`
-MPA=`find $MPETC -maxdepth 1 -type f -name $NAME`
-if [ "$A" ]; then
-  cp -f $A $MODETC
-fi
-if [ "$VA" ]; then
-  cp -f $VA $MODVETC
-fi
-if [ "$VOA" ]; then
-  cp -f $VOA $MODVOETC
-fi
-if [ "$VAA" ]; then
-  cp -f $VAA $MODVETC/audio
-fi
-if [ "$VBA" ]; then
-  cp -f $VBA $MODVETC/audio/"$PROP"
-fi
-if [ "$SKU" ]; then
-  for SKUS in $SKU; do
-    VSA=`find $VETC/audio/$SKUS -maxdepth 1 -type f -name $NAME`
-    if [ "$VSA" ]; then
-      cp -f $VSA $MODVETC/audio/$SKUS
-    fi
-  done
-fi
-if [ "$OA" ]; then
-  cp -f $OA $MODOETC
-fi
-if [ "$MPA" ]; then
-  cp -f $MPA $MODMPETC
-fi
-if [ ! -d $ODM ]\
-&& [ "`realpath /odm/etc`" == /odm/etc ]; then
-  OA=`find /odm/etc -maxdepth 1 -type f -name $NAME`
-  if [ "$OA" ]; then
-    cp -f $OA $MODVETC
+  if [ -x "`command -v magiskpolicy`" ]; then
+    magiskpolicy --live --apply $FILE 2>/dev/null
+  else
+    $MODPATH/$ABI/libmagiskpolicy.so --live --apply $FILE 2>/dev/null
   fi
 fi
-if [ ! -d $MY_PRODUCT ] && [ -d /my_product/etc ]; then
-  MPA=`find /my_product/etc -maxdepth 1 -type f -name $NAME`
-  if [ "$MPA" ]; then
-    cp -f $MPA $MODVETC
-  fi
-fi
-rm -f `find $MODPATH/system -type f -name *policy*volume*.xml`
+}
+
+# selinux
+SELINUX=`getenforce`
+chmod 0755 $MODPATH/*/libmagiskpolicy.so
+#1permissive
+#2magisk_permissive
+#kFILE=$MODPATH/sepolicy.rule
+#ksepolicy_sh
+FILE=$MODPATH/sepolicy.pfsd
+sepolicy_sh
 
 # run
+. $MODPATH/copy.sh
 . $MODPATH/.aml.sh
+
+# permission
+if [ "$API" -ge 26 ]; then
+  DIRS=`find $MODPATH/vendor\
+             $MODPATH/system/vendor -type d`
+  for DIR in $DIRS; do
+    chown 0.2000 $DIR
+  done
+  chcon -R u:object_r:vendor_configs_file:s0 $MODPATH/system/odm/etc
+  if [ -L $MODPATH/system/vendor ]\
+  && [ -d $MODPATH/vendor ]; then
+    chcon -R u:object_r:vendor_file:s0 $MODPATH/vendor
+    chcon -R u:object_r:vendor_configs_file:s0 $MODPATH/vendor/etc
+    chcon -R u:object_r:vendor_configs_file:s0 $MODPATH/vendor/odm/etc
+  else
+    chcon -R u:object_r:vendor_file:s0 $MODPATH/system/vendor
+    chcon -R u:object_r:vendor_configs_file:s0 $MODPATH/system/vendor/etc
+    chcon -R u:object_r:vendor_configs_file:s0 $MODPATH/system/vendor/odm/etc
+  fi
+fi
+
+# function
+mount_helper() {
+if [ -d /odm ]\
+&& [ "`realpath /odm/etc`" == /odm/etc ]; then
+  DIR=$MODPATH/system/odm
+  FILES=`find $DIR -type f -name $AUD`
+  for FILE in $FILES; do
+    DES=/odm`echo $FILE | sed "s|$DIR||g"`
+    umount $DES
+    mount -o bind $FILE $DES
+  done
+fi
+if [ -d /my_product ]; then
+  DIR=$MODPATH/system/my_product
+  FILES=`find $DIR -type f -name $AUD`
+  for FILE in $FILES; do
+    DES=/my_product`echo $FILE | sed "s|$DIR||g"`
+    umount $DES
+    mount -o bind $FILE $DES
+  done
+fi
+}
+
+# mount
+if ! grep delta /data/adb/magisk/util_functions.sh; then
+  mount_helper
+fi
+
+
+
+
+
+
 
 
 

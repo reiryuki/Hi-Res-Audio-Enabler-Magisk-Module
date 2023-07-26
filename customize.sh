@@ -1,39 +1,16 @@
 # space
 ui_print " "
 
-# magisk
-if [ -d /sbin/.magisk ]; then
-  MAGISKTMP=/sbin/.magisk
-else
-  MAGISKTMP=`realpath /dev/*/.magisk`
+# log
+if [ "$BOOTMODE" != true ]; then
+  FILE=/sdcard/$MODID\_recovery.log
+  ui_print "- Log will be saved at $FILE"
+  exec 2>$FILE
+  ui_print " "
 fi
 
-# path
-if [ "$BOOTMODE" == true ]; then
-  MIRROR=$MAGISKTMP/mirror
-else
-  MIRROR=
-fi
-SYSTEM=`realpath $MIRROR/system`
-PRODUCT=`realpath $MIRROR/product`
-VENDOR=`realpath $MIRROR/vendor`
-SYSTEM_EXT=`realpath $MIRROR/system_ext`
-if [ -d $MIRROR/odm ]; then
-  ODM=`realpath $MIRROR/odm`
-else
-  ODM=`realpath /odm`
-fi
-if [ -d $MIRROR/my_product ]; then
-  MY_PRODUCT=`realpath $MIRROR/my_product`
-else
-  MY_PRODUCT=`realpath /my_product`
-fi
-
-# optionals
-OPTIONALS=/sdcard/optionals.prop
-if [ ! -f $OPTIONALS ]; then
-  touch $OPTIONALS
-fi
+# run
+. $MODPATH/function.sh
 
 # info
 MODVER=`grep_prop version $MODPATH/module.prop`
@@ -41,16 +18,21 @@ MODVERCODE=`grep_prop versionCode $MODPATH/module.prop`
 ui_print " ID=$MODID"
 ui_print " Version=$MODVER"
 ui_print " VersionCode=$MODVERCODE"
-ui_print " MagiskVersion=$MAGISK_VER"
-ui_print " MagiskVersionCode=$MAGISK_VER_CODE"
+if [ "$KSU" == true ]; then
+  ui_print " KSUVersion=$KSU_VER"
+  ui_print " KSUVersionCode=$KSU_VER_CODE"
+  ui_print " KSUKernelVersionCode=$KSU_KERNEL_VER_CODE"
+  sed -i 's|#k||g' $MODPATH/post-fs-data.sh
+else
+  ui_print " MagiskVersion=$MAGISK_VER"
+  ui_print " MagiskVersionCode=$MAGISK_VER_CODE"
+fi
 ui_print " "
 
-# mount
-if [ "$BOOTMODE" != true ]; then
-  mount -o rw -t auto /dev/block/bootdevice/by-name/cust /vendor
-  mount -o rw -t auto /dev/block/bootdevice/by-name/vendor /vendor
-  mount -o rw -t auto /dev/block/bootdevice/by-name/persist /persist
-  mount -o rw -t auto /dev/block/bootdevice/by-name/metadata /metadata
+# optionals
+OPTIONALS=/sdcard/optionals.prop
+if [ ! -f $OPTIONALS ]; then
+  touch $OPTIONALS
 fi
 
 # sepolicy
@@ -66,17 +48,13 @@ mv -f $MODPATH/aml.sh $MODPATH/.aml.sh
 
 # cleaning
 ui_print "- Cleaning..."
-rm -rf /metadata/magisk/$MODID
-rm -rf /mnt/vendor/persist/magisk/$MODID
-rm -rf /persist/magisk/$MODID
-rm -rf /data/unencrypted/magisk/$MODID
-rm -rf /cache/magisk/$MODID
+remove_sepolicy_rule
 ui_print " "
 
 # pcm
 if [ "`grep_prop hires.pcm $OPTIONALS`" == 1 ]; then
   ui_print "- Enables audio format PCM patch to deep buffer playback"
-  ui_print "  Probably doesn't work in Android 13 (SDK 33)"
+  ui_print "  Probably doesn't work in Android 13 (SDK 33) and above"
   ui_print "  and produce bugs in some devices"
   sed -i 's/#c//g' $MODPATH/.aml.sh
   ui_print " "
@@ -171,23 +149,11 @@ elif [ "`grep_prop sample.rate $OPTIONALS`" == 384 ]\
   ui_print " "
 fi
 
-# other
-FILE=$MODPATH/service.sh
-if [ "`grep_prop other.etc $OPTIONALS`" == 1 ]; then
-  ui_print "- Activates other etc files bind mount"
-  sed -i 's/#p//g' $FILE
-  ui_print " "
-fi
+# run
+. $MODPATH/copy.sh
+. $MODPATH/.aml.sh
 
-# permission
-if [ "$API" -ge 26 ]; then
-  ui_print "- Setting permission..."
-  DIR=`find $MODPATH/system/vendor -type d`
-  for DIRS in $DIR; do
-    chown 0.2000 $DIRS
-  done
-  ui_print " "
-fi
+
 
 
 

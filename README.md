@@ -2,7 +2,7 @@
 
 ## Descriptions
 - Enables high resolution 24 or 32 bit width audio output if device is supported.
-- Causes no sound issue in unsupported device
+- Causes no sound or low sound issue in unsupported device
 - Not for Bluetooth audio
 - Adds path name hph-highquality-mode to mixer path if not available yet
 
@@ -12,10 +12,10 @@
 - https://t.me/androidryukimodsdiscussions/1532
 
 ## Requirements
-- Magisk installed
+- Magisk or KernelSU installed
 
 ## Installation Guide & Download Link
-- Install this module https://www.pling.com/p/1532198/ via Magisk app or Recovery
+- Install this module https://www.pling.com/p/1532198/ via Magisk app or KernelSU app or Recovery if Magisk installed
 - This is also an audio mod so, you need to install AML Magisk Module https://t.me/androidryukimodsdiscussions/29836 if using any other audio mod module
 - Reboot
 - For checking is it applied or not, read Troubleshootings bellow!
@@ -34,9 +34,7 @@
 - Android 11 DotOS ROM
 - Android 12 AncientOS ROM
 - Android 12.1 Nusantara ROM
-- Android 13 Nusantara ROM
-- Android 13 AOSP ROM
-- Android 13 CrDroid ROM
+- Android 13 Nusantara ROM, AOSP ROM, & CrDroid ROM
 
 ## Credits and contributors
 - https://t.me/viperatmos
