@@ -1,7 +1,7 @@
 id=HiResAudio
 name=Hi-Res Audio Enabler
-version=v3.5
-versionCode=25
+version=v3.6
+versionCode=26
 author=Rei Ryuki the Fixer
 description=Enables high resolution 24 bit width audio output for any supported Android devices. Adds path name hph-highquality-mode to mixer path if not available yet.
 
