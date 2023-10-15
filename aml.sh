@@ -1,4 +1,4 @@
-[ -z $MODPATH ] && MODPATH=${0%/*}
+[ ! "$MODPATH" ] && MODPATH=${0%/*}
 
 # destination
 MODAPC=`find $MODPATH -type f -name *policy*.conf`
