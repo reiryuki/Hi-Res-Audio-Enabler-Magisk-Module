@@ -94,7 +94,7 @@ fi
 }
 
 # mount
-if ! grep delta /data/adb/magisk/util_functions.sh; then
+if ! grep -E 'delta|Delta|kitsune' /data/adb/magisk/util_functions.sh; then
   mount_helper
 fi
 

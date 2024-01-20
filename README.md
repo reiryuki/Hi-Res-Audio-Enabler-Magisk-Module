@@ -16,7 +16,7 @@
 
 ## Installation Guide & Download Link
 - Install this module https://www.pling.com/p/1532198/ via Magisk app or KernelSU app or Recovery if Magisk installed
-- This is also an audio mod so, you need to install AML Magisk Module https://t.me/androidryukimodsdiscussions/29836 if using any other audio mod module
+- This is also an audio mod so, you need to install AML Magisk Module https://t.me/androidryukimodsdiscussions/29836 if using any other else audio mod module
 - Reboot
 - For checking is it applied or not, read Troubleshootings bellow!
 
@@ -35,6 +35,7 @@
 - Android 12 AncientOS ROM
 - Android 12.1 Nusantara ROM
 - Android 13 Nusantara ROM, AOSP ROM, & CrDroid ROM
+- Android 14 LineageOS ROM
 
 ## Credits and contributors
 - https://t.me/viperatmos

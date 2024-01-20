@@ -8,11 +8,11 @@ set -x
 API=`getprop ro.build.version.sdk`
 
 # property
-#32resetprop vendor.audio.flac.sw.decoder.32bit true
-resetprop vendor.audio.flac.sw.decoder.24bit true
-#32resetprop audio.offload.pcm.32bit.enabled true
-resetprop audio.offload.pcm.24bit.enabled true
-resetprop audio.offload.pcm.16bit.enabled true
+#32resetprop -n vendor.audio.flac.sw.decoder.32bit true
+resetprop -n vendor.audio.flac.sw.decoder.24bit true
+#32resetprop -n audio.offload.pcm.32bit.enabled true
+resetprop -n audio.offload.pcm.24bit.enabled true
+resetprop -n audio.offload.pcm.16bit.enabled true
 resetprop -p --delete persist.vendor.audio_hal.dsp_bit_width_enforce_mode
 resetprop -n persist.vendor.audio_hal.dsp_bit_width_enforce_mode 24
 
@@ -22,10 +22,8 @@ if [ "$API" -ge 24 ]; then
 else
   SERVER=mediaserver
 fi
-PID=`pidof $SERVER`
-if [ "$PID" ]; then
-  killall $SERVER android.hardware.audio@4.0-service-mediatek
-fi
+killall $SERVER\
+ android.hardware.audio@4.0-service-mediatek
 
 # wait
 sleep 20
@@ -73,6 +71,9 @@ if [ -d $AML ] && [ ! -f $AML/disable ]\
     done
   fi
 fi
+
+# audio flinger
+DMAF=`dumpsys media.audio_flinger`
 
 
 
