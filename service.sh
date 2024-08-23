@@ -8,11 +8,7 @@ set -x
 API=`getprop ro.build.version.sdk`
 
 # property
-#32resetprop -n vendor.audio.flac.sw.decoder.32bit true
-resetprop -n vendor.audio.flac.sw.decoder.24bit true
-#32resetprop -n audio.offload.pcm.32bit.enabled true
-resetprop -n audio.offload.pcm.24bit.enabled true
-resetprop -n audio.offload.pcm.16bit.enabled true
+resetprop -n vendor.audio.capture.pcm.32bit.enable true
 resetprop -p --delete persist.vendor.audio_hal.dsp_bit_width_enforce_mode
 resetprop -n persist.vendor.audio_hal.dsp_bit_width_enforce_mode 24
 

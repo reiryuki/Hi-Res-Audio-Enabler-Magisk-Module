@@ -3,6 +3,7 @@ ui_print " "
 
 # var
 UID=`id -u`
+[ ! "$UID" ] && UID=0
 
 # log
 if [ "$BOOTMODE" != true ]; then
@@ -23,6 +24,13 @@ if [ "`grep_prop debug.log $OPTIONALS`" == 1 ]; then
   ui_print "- The install log will contain detailed information"
   set -x
   ui_print " "
+fi
+
+# recovery
+if [ "$BOOTMODE" != true ]; then
+  MODPATH_UPDATE=`echo $MODPATH | sed 's|modules/|modules_update/|g'`
+  rm -f $MODPATH/update
+  rm -rf $MODPATH_UPDATE
 fi
 
 # run
@@ -82,7 +90,6 @@ fi
 if [ "`grep_prop hires.32 $OPTIONALS`" == 1 ]; then
   ui_print "- Enables 32 bit width instead of 24 bit width"
   sed -i 's/#32//g' $MODPATH/.aml.sh
-  sed -i 's/#32//g' $MODPATH/service.sh
   sed -i 's/enforce_mode 24/enforce_mode 32/g' $MODPATH/service.sh
   sed -i 's/24 bit width/32 bit width/g' $MODPATH/module.prop
   ui_print " "

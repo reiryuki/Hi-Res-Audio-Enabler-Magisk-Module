@@ -29,23 +29,12 @@
 - https://t.me/androidryukimodsdiscussions/2618 (Z folder is enough, no need logs)
 - If you don't do above, issues will be closed immediately
 
-## Tested on
-- Android 10 CrDroid ROM
-- Android 11 DotOS ROM
-- Android 12 AncientOS ROM
-- Android 12.1 Nusantara ROM
-- Android 13 Nusantara ROM, AOSP ROM, & CrDroid ROM
-- Android 14 LineageOS ROM
-
-## Credits and contributors
+## Credits and Contributors
 - https://t.me/viperatmos
 - https://t.me/androidryukimodsdiscussions
 - You can contribute ideas about this Magisk Module here: https://t.me/androidappsportdevelopment
 
-## Thanks for Donations
-This Magisk Module is always will be free but you can however show us that you are care by making a donations:
-- https://ko-fi.com/reiryuki
-- https://www.paypal.me/reiryuki
+## Sponsors
 - https://t.me/androidryukimodsdiscussions/2619
 
 

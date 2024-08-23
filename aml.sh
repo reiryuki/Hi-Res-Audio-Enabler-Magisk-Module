@@ -1,15 +1,15 @@
 [ ! "$MODPATH" ] && MODPATH=${0%/*}
 
 # destination
-MODAPC=`find $MODPATH -type f -name *policy*.conf`
-MODAPX=`find $MODPATH -type f -name *policy*.xml`
-MODAPI=`find $MODPATH -type f -name *audio*platform*info*.xml`
-MODMP=`find $MODPATH -type f -name *mixer*paths*.xml`
+MODAPCS=`find $MODPATH -type f -name *policy*.conf`
+MODAPXS=`find $MODPATH -type f -name *policy*.xml`
+MODAPIS=`find $MODPATH -type f -name *audio*platform*info*.xml`
+MODMPS=`find $MODPATH -type f -name *mixer*paths*.xml`
 
 # function
 patch_audio_format_pcm() {
 # patch audio policy conf
-if [ "$MODAPC" ]; then
+for MODAPC in $MODAPCS; do
   if ! grep -q deep_buffer_24 $MODAPC; then
     sed -i '/^outputs/a\
   deep_buffer_24 {\
@@ -68,9 +68,9 @@ if [ "$MODAPC" ]; then
 #f#p    app_type 69937\
 #f#p  }' $MODAPC
 #f#p  fi
-fi
+done
 # patch audio policy xml
-if [ "$MODAPX" ]; then
+for MODAPX in $MODAPXS; do
   sed -i '/AUDIO_OUTPUT_FLAG_DEEP_BUFFER/a\
                     <profile name="" format="AUDIO_FORMAT_PCM_24_BIT_PACKED"\
                              samplingRates="44100,48000"\
@@ -101,14 +101,14 @@ if [ "$MODAPX" ]; then
 #f#p                    <profile name="" format="AUDIO_FORMAT_PCM_FLOAT"\
 #f#p                             samplingRates="44100,48000"\
 #f#p                             channelMasks="AUDIO_CHANNEL_OUT_STEREO,AUDIO_CHANNEL_OUT_MONO"/>' $MODAPX
-fi
+done
 }
 
 # patch audio format pcm
 #cpatch_audio_format_pcm
 
 # patch audio platform info
-if [ "$MODAPI" ]; then
+for MODAPI in $MODAPIS; do
   if ! grep -q '<bit_width_configs>' $MODAPI; then
     sed -i '/<audio_platform_info>/a\
     <bit_width_configs>\
@@ -132,16 +132,16 @@ if [ "$MODAPI" ]; then
 #s16  sed -i 's|<device name="SND_DEVICE_OUT_SPEAKER" bit_width="32"|<device name="SND_DEVICE_OUT_SPEAKER" bit_width="16"|g' $MODAPI
 #s24  sed -i 's|<device name="SND_DEVICE_OUT_SPEAKER" bit_width="16"|<device name="SND_DEVICE_OUT_SPEAKER" bit_width="24"|g' $MODAPI
 #s24  sed -i 's|<device name="SND_DEVICE_OUT_SPEAKER" bit_width="32"|<device name="SND_DEVICE_OUT_SPEAKER" bit_width="24"|g' $MODAPI
-fi
+done
 
 # patch mixer path
-if [ "$MODMP" ]; then
+for MODMP in $MODMPS; do
   if ! grep -q hph-highquality-mode $MODMP; then
     sed -i '/<\/mixer>/i\
     <path name="hph-highquality-mode">\
     <\/path>\' $MODMP
   fi
-fi
+done
 
 
 
