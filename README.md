@@ -20,13 +20,16 @@
 - Reboot
 - For checking is it applied or not, read Troubleshootings bellow!
 
-## Optionals & Troubleshootings
-- https://t.me/ryukinotes/35
-- https://t.me/ryukinotes/34
-- https://t.me/androidryukimodsdiscussions/58223
+## Optionals
+- https://t.me/ryukinotes/53
+- Global: https://t.me/ryukinotes/35
+
+## Troubleshootings
+- https://t.me/ryukinotes/53
+- Global: https://t.me/ryukinotes/34
 
 ## Support & Bug Report
-- https://t.me/androidryukimodsdiscussions/2618 (Z folder is enough, no need logs)
+- https://t.me/ryukinotes/54
 - If you don't do above, issues will be closed immediately
 
 ## Credits and Contributors
