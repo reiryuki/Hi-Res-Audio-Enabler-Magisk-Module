@@ -16,13 +16,13 @@
 
 ## Installation Guide & Download Link
 - Install this module https://www.pling.com/p/1532198/ via Magisk app or KernelSU app or Recovery if Magisk installed
-- This is also an audio mod so, you need to install AML Magisk Module https://t.me/androidryukimodsdiscussions/29836 if using any other else audio mod module
+- This is also an audio mod so, you need to install AML Magisk Module https://t.me/ryukinotes/34 if using any other else audio mod module
 - Reboot
 - For checking is it applied or not, read Troubleshootings bellow!
 
 ## Optionals & Troubleshootings
-- https://t.me/androidryukimodsdiscussions/60861
-- https://t.me/androidryukimodsdiscussions/29836
+- https://t.me/ryukinotes/35
+- https://t.me/ryukinotes/34
 - https://t.me/androidryukimodsdiscussions/58223
 
 ## Support & Bug Report
@@ -35,6 +35,6 @@
 - You can contribute ideas about this Magisk Module here: https://t.me/androidappsportdevelopment
 
 ## Sponsors
-- https://t.me/androidryukimodsdiscussions/2619
+- https://t.me/ryukinotes/25
 
 
