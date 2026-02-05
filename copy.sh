@@ -16,12 +16,7 @@ for FILE in $FILES; do
 done
 FILES=`find /vendor -type f -name $AUD`
 for FILE in $FILES; do
-  if [ -L $MODPATH/system/vendor ]\
-  && [ -d $MODPATH/vendor ]; then
-    MODFILE=$MODPATH$FILE
-  else
-    MODFILE=$MODPATH/system$FILE
-  fi
+  MODFILE=$MODPATH$MODSYSTEM$FILE
   copy_dir_file $FILE $MODFILE
 done
 rm -f `find $MODPATH -type f -name *policy*volume*.xml`

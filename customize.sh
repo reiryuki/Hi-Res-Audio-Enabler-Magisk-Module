@@ -158,6 +158,7 @@ elif [ "`grep_prop sample.rate $OPTIONALS`" == 384 ]\
 fi
 
 # run
+MODSYSTEM=/system
 . $MODPATH/copy.sh
 . $MODPATH/.aml.sh
 

@@ -8,6 +8,10 @@ set -x
 # var
 API=`getprop ro.build.version.sdk`
 ABI=`getprop ro.product.cpu.abi`
+if [ ! -d $MODPATH/vendor ]\
+|| [ -L $MODPATH/vendor ]; then
+  MODSYSTEM=/system
+fi
 
 # run
 . $MODPATH/copy.sh
@@ -21,16 +25,9 @@ if [ "$API" -ge 26 ]; then
     chown 0.2000 $DIR
   done
   chcon -R u:object_r:vendor_configs_file:s0 $MODPATH/system/odm/etc
-  if [ -L $MODPATH/system/vendor ]\
-  && [ -d $MODPATH/vendor ]; then
-    chcon -R u:object_r:vendor_file:s0 $MODPATH/vendor
-    chcon -R u:object_r:vendor_configs_file:s0 $MODPATH/vendor/etc
-    chcon -R u:object_r:vendor_configs_file:s0 $MODPATH/vendor/odm/etc
-  else
-    chcon -R u:object_r:vendor_file:s0 $MODPATH/system/vendor
-    chcon -R u:object_r:vendor_configs_file:s0 $MODPATH/system/vendor/etc
-    chcon -R u:object_r:vendor_configs_file:s0 $MODPATH/system/vendor/odm/etc
-  fi
+  chcon -R u:object_r:vendor_file:s0 $MODPATH$MODSYSTEM/vendor
+  chcon -R u:object_r:vendor_configs_file:s0 $MODPATH$MODSYSTEM/vendor/etc
+  chcon -R u:object_r:vendor_configs_file:s0 $MODPATH$MODSYSTEM/vendor/odm/etc
 fi
 
 # function

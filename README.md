@@ -12,10 +12,10 @@
 - https://t.me/androidryukimodsdiscussions/1532
 
 ## Requirements
-- Magisk or KernelSU installed
+- Magisk or Kitsune Mask or KernelSU or Apatch installed
 
 ## Installation Guide & Download Link
-- Install this module https://www.pling.com/p/1532198/ via Magisk app or KernelSU app or Recovery if Magisk installed
+- Install this module https://www.pling.com/p/1532198/ via Magisk app or Kitsune Mask app or KernelSU app or Apatch app or Recovery if Magisk or Kitsune Mask installed
 - This is also an audio mod so, you need to install AML Magisk Module https://t.me/ryukinotes/34 if using any other else audio mod module
 - Reboot
 - For checking is it applied or not, read Troubleshootings bellow!
